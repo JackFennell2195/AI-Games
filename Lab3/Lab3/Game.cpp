@@ -9,7 +9,7 @@
 /// load and setup thne image
 /// </summary>
 Game::Game() :
-	m_window{ sf::VideoMode{ 2200U, 2000U, 32U }, "Lab 2b" },
+	m_window{ sf::VideoMode{ 2200U, 1800U, 32U }, "Lab 3" },
 	m_exitGame{false} //when true game will exit
 {
 	setupSprites(); // load texture
@@ -99,6 +99,8 @@ void Game::update(sf::Time t_deltaTime)
 	boundaryCheck(npc.m_NPCPosition);
 	boundaryCheck(npc2.m_NPCPosition2);
 	boundaryCheck(npc3.m_NPCPosition3);
+	boundaryCheck(npc4.m_NPCPosition4);
+	boundaryCheck(npc5.m_NPCPosition5);
 	player.playerInput(); 
 }
 
@@ -112,6 +114,8 @@ void Game::render()
 	m_window.draw(npc.m_NPCSprite);
 	m_window.draw(npc2.m_NPCSprite2);
 	m_window.draw(npc3.m_NPCSprite3);
+	m_window.draw(npc4.m_NPCSprite4);
+	m_window.draw(npc5.m_NPCSprite5);
 	m_window.display();
 }
 
@@ -122,11 +126,12 @@ void Game::move()
 	npc.npcMove();
 	npc2.npcMove();
 	npc3.npcMove();
+	npc4.npcMove();
+	npc5.npcMove();
 
-
-	npc.kinematicWander();
-	npc2.kinematicSeek(player.m_playerPosition);
-	npc3.kinematicFlee(player.m_playerPosition);
+	npc.dynamicWander();
+	npc2.dynamicSeek(player.m_playerPosition);
+	npc3.dynamicFlee(player.m_playerPosition);
 }
 
 void Game::boundaryCheck(sf::Vector2f& pos)
@@ -143,7 +148,7 @@ void Game::boundaryCheck(sf::Vector2f& pos)
 	{
 		pos.y = m_window.getSize().y;
 	}
-	if (pos.y > 2000)
+	if (pos.y > 1800)
 	{
 		pos.y = -250;
 	}
@@ -159,6 +164,8 @@ void Game::setupSprites()
 	npc.setUpAssets();
 	npc2.setUpAssets();
 	npc3.setUpAssets();
+	npc4.setUpAssets();
+	npc5.setUpAssets();
 }
 
 

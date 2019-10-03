@@ -34,9 +34,29 @@ void NPC::setUpAssets()
 	m_NPCSprite3.setOrigin(m_NPCTexture3.getSize().x / 2, m_NPCTexture3.getSize().y / 2);
 	m_NPCPosition3 = m_NPCSprite3.getPosition();
 
+	if (!m_NPCTexture4.loadFromFile("ASSETS\\IMAGES\\NPC4.png"))
+	{
+		// simple error message if previous call fails
+		std::cout << "problem loading logo" << std::endl;
+	}
+	m_NPCSprite4.setTexture(m_NPCTexture4);
+	m_NPCSprite4.setPosition(400.0f, 1300.0f);
+	m_NPCSprite4.setOrigin(m_NPCTexture4.getSize().x / 2, m_NPCTexture4.getSize().y / 2);
+	m_NPCPosition4 = m_NPCSprite4.getPosition();
+
+
+	if (!m_NPCTexture5.loadFromFile("ASSETS\\IMAGES\\NPC5.png"))
+	{
+		// simple error message if previous call fails
+		std::cout << "problem loading logo" << std::endl;
+	}
+	m_NPCSprite5.setTexture(m_NPCTexture5);
+	m_NPCSprite5.setPosition(400.0f, 1600.0f);
+	m_NPCSprite5.setOrigin(m_NPCTexture5.getSize().x / 2, m_NPCTexture5.getSize().y / 2);
+	m_NPCPosition5 = m_NPCSprite3.getPosition();
 }
 
-void NPC::kinematicWander()
+void NPC::dynamicWander()
 {
 	m_randomDirection = (rand() % 3) - 1;
 
@@ -58,7 +78,7 @@ void NPC::kinematicWander()
 
 }
 
-void NPC::kinematicSeek(sf::Vector2f& pos)
+void NPC::dynamicSeek(sf::Vector2f& pos)
 {
 	m_direction.x = pos.x - m_NPCPosition2.x;
 	m_direction.y = pos.y - m_NPCPosition2.y;
@@ -74,13 +94,13 @@ void NPC::kinematicSeek(sf::Vector2f& pos)
 	}
 	else
 	{
-		kinematicArrive(pos);
+		dynamicArrive(pos);
 	}
 
 
 }
 
-void NPC::kinematicArrive(sf::Vector2f& pos)
+void NPC::dynamicArrive(sf::Vector2f& pos)
 {
 	
 	m_direction.x = pos.x - m_NPCPosition2.x;
@@ -99,7 +119,7 @@ void NPC::kinematicArrive(sf::Vector2f& pos)
 	
 }
 
-void NPC::kinematicFlee(sf::Vector2f& pos)
+void NPC::dynamicFlee(sf::Vector2f& pos)
 {
 	m_direction.x = pos.x - m_NPCPosition3.x;
 	m_direction.y = pos.y - m_NPCPosition3.y;
@@ -116,6 +136,12 @@ void NPC::kinematicFlee(sf::Vector2f& pos)
 
 }
 
+void NPC::dynamicPursue(sf::Vector2f& pos)
+{
+
+
+}
+
 void NPC::npcMove()
 {
 	if (m_magnitude > MAX_SPEED)
@@ -123,6 +149,8 @@ void NPC::npcMove()
 		m_NPCVelocity = m_direction * MAX_SPEED;
 		m_NPCVelocity2 = m_direction * MAX_SPEED;
 		m_NPCVelocity3 = m_direction * MAX_SPEED;
+		m_NPCVelocity4 = m_direction * MAX_SPEED;
+		m_NPCVelocity4 = m_direction * MAX_SPEED;
 	}
 
 	m_NPCPosition = m_NPCPosition + m_NPCVelocity;
@@ -133,6 +161,12 @@ void NPC::npcMove()
 
 	m_NPCPosition3 = m_NPCPosition3 + m_NPCVelocity3;
 	m_NPCSprite3.setPosition(m_NPCPosition3);
+
+	m_NPCPosition4 = m_NPCPosition4 - m_NPCVelocity4;
+	m_NPCSprite4.setPosition(m_NPCPosition4);
+
+	m_NPCPosition5 = m_NPCPosition5 - m_NPCVelocity5;
+	m_NPCSprite5.setPosition(m_NPCPosition5);
 }
 
 
