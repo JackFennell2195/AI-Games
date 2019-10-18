@@ -84,7 +84,7 @@ Destructors are commented out for now. g++ throws errors if they are included.
 
 	const float A = 5.0f;
 	const float B = 2.5f;
-	const float N = 0.0f;
+	const float N = -0.2f;
 	const float M = 0.0f;
 };
 
