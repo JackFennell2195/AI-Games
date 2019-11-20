@@ -8,9 +8,9 @@
 /// </summary>
 Game::Game() :
 	m_window{ sf::VideoMode{ 1400U, 1400U, 32U }, "SFML Game" },
-	m_exitGame{false} //when true game will exit
+	m_exitGame{ false } //when true game will exit
 {
-	
+	createGrid();
 }
 
 /// <summary>
@@ -29,7 +29,7 @@ Game::~Game()
 /// if updates run slow then don't render frames
 /// </summary>
 void Game::run()
-{	
+{
 	sf::Clock clock;
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
 	const float fps{ 60.0f };
@@ -57,13 +57,17 @@ void Game::processEvents()
 	sf::Event newEvent;
 	while (m_window.pollEvent(newEvent))
 	{
-		if ( sf::Event::Closed == newEvent.type) // window message
+		if (sf::Event::Closed == newEvent.type) // window message
 		{
 			m_exitGame = true;
 		}
 		if (sf::Event::KeyPressed == newEvent.type) //user pressed a key
 		{
 			processKeys(newEvent);
+		}
+		if (sf::Event::MouseButtonPressed == newEvent.type) //user pressed a key
+		{
+			processClicks(newEvent);
 		}
 	}
 }
@@ -78,6 +82,14 @@ void Game::processKeys(sf::Event t_event)
 	if (sf::Keyboard::Escape == t_event.key.code)
 	{
 		m_exitGame = true;
+	}
+}
+
+void Game::processClicks(sf::Event t_event)
+{
+	if (sf::Mouse::Left == t_event.key.code)
+	{
+		getSquareClicked();
 	}
 }
 
@@ -99,5 +111,23 @@ void Game::update(sf::Time t_deltaTime)
 void Game::render()
 {
 	m_window.clear(sf::Color::White);
+	for (int i = 0; i < (m_gridSize - 1); i++)
+	{
+		m_square[i]->render();
+	}
 	m_window.display();
+}
+
+void Game::createGrid()
+{
+	for (int i = 0; i < (m_gridSize - 1); i++)
+	{
+		m_square.push_back(new Square(m_window));
+		m_square[i]->setSize(sf::Vector2f(m_window.getSize().x / m_gridHeight, m_window.getSize().y / m_gridWidth));
+		m_square[i]->setID(i);
+	}
+}
+
+void Game::getSquareClicked()
+{
 }

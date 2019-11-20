@@ -1,36 +1,36 @@
-
 #ifndef GAME_HPP
 #define GAME_HPP
-/// <summary>
-/// include guards used so we don't process this file twice
-/// same as #pragma once
-/// Don't forget the endif at the bottom
-/// </summary>
+
 #include <SFML/Graphics.hpp>
-#include "Tile.h"
+#include "Square.h"
 class Game
 {
 public:
 	Game();
 	~Game();
-	/// <summary>
-	/// main method for game
-	/// </summary>
 	void run();
-	Tile tile;
+
 
 
 private:
 
 	void processEvents();
 	void processKeys(sf::Event t_event);
+	void processClicks(sf::Event t_event);
 	void update(sf::Time t_deltaTime);
 	void render();
 
+	void createGrid();
+	void getSquareClicked();
+
+	int m_gridWidth = 50;
+	int m_gridHeight = 50;
+	int m_gridSize = (m_gridHeight * m_gridWidth);
+
+	std::vector<Square*> m_square;
 	sf::RenderWindow m_window; // main SFML window
 	bool m_exitGame; // control exiting game
 
 };
 
 #endif // !GAME_HPP
-
