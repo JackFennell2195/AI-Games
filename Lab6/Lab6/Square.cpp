@@ -11,8 +11,8 @@ Square::~Square()
 void Square::setSize(sf::Vector2f t_size)
 {
 	m_square.setFillColor(sf::Color(0, 0, 0, 0));
-	m_square.setOutlineColor(sf::Color::White);
-	m_square.setOutlineThickness(1);
+	m_square.setOutlineColor(sf::Color::Black);
+	m_square.setOutlineThickness(1.2);
 	m_square.setSize(t_size);
 }
 

@@ -22,6 +22,7 @@ private:
 
 	void createGrid();
 	void getSquareClicked();
+	void createObstacle();
 
 	int m_gridWidth = 50;
 	int m_gridHeight = 50;

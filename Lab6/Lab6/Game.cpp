@@ -91,6 +91,14 @@ void Game::processClicks(sf::Event t_event)
 	{
 		getSquareClicked();
 	}
+	if (sf::Mouse::Right == t_event.key.code)
+	{
+		getSquareClicked();
+	}
+	if (sf::Mouse::Middle == t_event.key.code)
+	{
+		createObstacle();
+	}
 }
 
 /// <summary>
@@ -110,7 +118,7 @@ void Game::update(sf::Time t_deltaTime)
 /// </summary>
 void Game::render()
 {
-	m_window.clear(sf::Color::White);
+	m_window.clear(sf::Color::Blue);
 	for (int i = 0; i < (m_gridSize - 1); i++)
 	{
 		m_square[i]->render();
@@ -123,11 +131,56 @@ void Game::createGrid()
 	for (int i = 0; i < (m_gridSize - 1); i++)
 	{
 		m_square.push_back(new Square(m_window));
-		m_square[i]->setSize(sf::Vector2f(m_window.getSize().x / m_gridHeight, m_window.getSize().y / m_gridWidth));
+		m_square[i]->setSize(sf::Vector2f((m_window.getSize().x / m_gridHeight),(m_window.getSize().y / m_gridWidth)));
 		m_square[i]->setID(i);
+	}
+
+	float x = 0;
+	float y = 0;
+	float xcount = 0;
+	float ycount = 0;
+	for (int j = 0; j < (m_gridSize - 1); j++)
+	{
+		m_square[j]->setPosition(sf::Vector2f(x, y));
+
+		if (x < (m_window.getSize().x) - (m_square[j]->getSquareSize().x))
+		{
+			x += m_square[j]->getSquareSize().x;
+		}
+		else
+		{
+			xcount++;
+			ycount++;
+			x = 0;
+			y = (m_square[j]->getSquareSize().y * ycount);
+		}
 	}
 }
 
 void Game::getSquareClicked()
 {
+	
+	sf::Vector2f m_click = sf::Vector2f(sf::Mouse::getPosition(m_window).x, sf::Mouse::getPosition(m_window).y);
+	for (int k = 0; k < (m_gridSize - 1); k++)
+	{
+		if (m_square[k]->getSquarePosition().x >= m_click.x && ((m_square[k]->getSquarePosition().y >= m_click.y)))
+		{
+			
+		}
+		else
+		{
+
+		}
+	}
+
+}
+
+void Game::createObstacle()
+{
+	sf::Vector2f m_click = sf::Vector2f(sf::Mouse::getPosition(m_window).x, sf::Mouse::getPosition(m_window).y);
+	for (int l = 0; l < (m_gridSize - 1); l++)
+	{
+
+	}
+
 }
